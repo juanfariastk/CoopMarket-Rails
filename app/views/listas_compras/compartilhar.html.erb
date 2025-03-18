@@ -1,0 +1,64 @@
+<div class="container mt-4">
+  <h2 class="mb-4 text-center"><span class="text-center h4 me-3"><i class="bi bi-share-fill text-black"></i></span> Compartilhar Lista  </h2>
+
+  <div class="item-row lista-item-card p-3">
+
+    <% if flash[:alert] %>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle-fill"></i> <%= flash[:alert] %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% elsif flash[:notice] %>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle-fill"></i> <%= flash[:notice] %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+
+    <h5>Usuários com Acesso</h5>
+    <% if @lista.usuarios_compartilhados.any? %>
+      <ul class="list-group">
+        <% @lista.usuarios_compartilhados.each do |usuario| %>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>
+              <strong><%= usuario.name %></strong> - <%= usuario.email %>
+            </span>
+            <% permissao_usuario = @lista.compartilhamento_listas.find_by(user_id: usuario.id)&.permissao %>
+
+            <%= button_to "Remover", remover_compartilhamento_listas_compra_path(@lista, usuario_id: usuario.id), 
+                method: :delete, class: "btn btn-danger btn-sm",
+                data: { confirm: "Tem certeza que deseja remover este usuário?" }, 
+                disabled: permissao_usuario == "proprietario" %>
+
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-muted text-center">Nenhum usuário tem acesso a esta lista ainda.</p>
+    <% end %>
+
+
+    <h5 class="mt-4">Adicionar Usuário</h5>
+    <%= form_with url: compartilhar_usuario_listas_compra_path(@lista), method: :post, local: true do |form| %>
+        <div class="mb-3">
+            <%= form.label :email, "E-mail do Usuário" %>
+            <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <%= form.text_field :email, class: "form-control", required: true, placeholder: "Digite o e-mail do usuário" %>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <%= form.label :permissao, "Permissão do Usuário" %>
+            <%= form.select :permissao, [["Colaborador", "colaborador"], ["Leitor", "leitor"]], 
+                { prompt: "Selecione uma permissão" }, class: "form-control", required: true %>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <%= form.submit "Adicionar", class: "btn btn-primary px-4" %>
+            <%= link_to "Voltar", listas_compras_path, class: "btn btn-secondary px-4" %>
+        </div>
+    <% end %>
+
+  </div>
+</div>

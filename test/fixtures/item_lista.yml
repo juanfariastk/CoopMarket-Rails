@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nome_item: MyString
+  quantidade: 1
+  observacoes: MyText
+  lista_compra: one
+
+two:
+  nome_item: MyString
+  quantidade: 1
+  observacoes: MyText
+  lista_compra: two

@@ -1,0 +1,53 @@
+<div class="container mt-2">
+  <h2 class="mb-5 text-center">Minhas Listas de Compras</h2>
+
+  <% if @listas.any? %>
+    <div class="row">
+      <% @listas.each do |lista| %>
+        <% permissao = lista.compartilhamento_listas.find_by(user_id: current_user.id)&.permissao || "desconhecida" %>
+
+        <div class="col-md-4 mb-4" id="lista-<%= lista.id %>">
+          <div class="card lista-card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title"><%= lista.nome %></h5>
+              <p class="card-text text-muted"><%= lista.descricao.presence || "Sem descrição" %></p>
+              <small class="text-muted">Criado em: <%= lista.created_at.strftime("%d/%m/%Y %H:%M") %></small>
+              <div class="text-muted">
+                Permissão: <%= permissao.capitalize %>
+              </div>
+
+              <div class="mt-3 d-flex justify-content-between align-items-center">
+                <%= link_to "Ver", listas_compra_path(lista), class: "btn btn-sm btn-outline-primary" %>
+
+                <% if permissao == "proprietario" || permissao == "colaborador" %>
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenu<%= lista.id %>" data-bs-toggle="dropdown" aria-expanded="false">
+                      Ações
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu<%= lista.id %>">
+                      <% if permissao == "proprietario" || permissao == "colaborador" %>
+                        <li><%= link_to "Compartilhar", compartilhar_listas_compra_path(lista), class: "dropdown-item" %></li>
+                        <li><%= link_to "Editar", edit_listas_compra_path(lista), class: "dropdown-item" %></li>
+                      <% end %>
+
+                      <% if permissao == "proprietario" %>
+                        <li>
+                          <%= link_to "Excluir", listas_compra_path(lista), method: :delete, data: { turbo_method: "delete", confirm: "Tem certeza?" }, class: "dropdown-item text-danger" %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-center text-muted">Nenhuma lista de compras encontrada.</p>
+  <% end %>
+</div>
+
+<div class="teste-css"> esta é uma div de testes </div>

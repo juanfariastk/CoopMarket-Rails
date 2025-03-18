@@ -1,0 +1,57 @@
+<div class="container mt-4 mb-4">
+  <div class="card shadow-sm p-4">
+    <h2 class="mb-3 text-center"><i class="fas fa-list-alt"></i> <%= @lista.nome %></h2>
+    <p class="text-muted text-center">Descrição: <%= @lista.descricao.presence || "Sem descrição" %></p>
+    <hr>
+
+    <h4 class="mb-3"><i class="fas fa-shopping-cart"></i> Itens da Lista</h4>
+    <div class="row ">
+      <% @lista.itens_lista.each do |item| %>
+        <div class="col-md-4">
+          <div class="item-row card p-3 mb-2 lista-item-card">
+            <div class="card-body">
+              <h5 class="card-title">Nome do Item: <%= item.nome_item %></h5>
+              <p class="card-text pt-2">Quantidade Adicionada: <strong><%= item.quantidade %></strong></p>
+              <p class="text-muted">Observações: <%= item.observacoes.presence || "Sem observações" %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <hr>
+    <h4 class="mt-4"><i class="fas fa-users"></i> Usuários com acesso </h4>
+    <ul class="list-group">
+      <% compartilhados = @lista.usuarios_compartilhados.reject { |usuario| usuario == current_user } %>
+      <% if compartilhados.any? %>
+        <% compartilhados.each do |usuario| %>
+          <% permissao = @lista.compartilhamento_listas.find_by(user_id: usuario.id)&.permissao %>
+          <% badge_class = case permissao
+              when "proprietario" then "bg-primary"
+              when "colaborador" then "bg-warning"
+              when "leitor" then "bg-secondary"
+              else "bg-dark"
+            end %>
+
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <strong><%= usuario.name %></strong> - <%= usuario.email %>
+            <span class="badge <%= badge_class %>">
+              <%= permissao.capitalize %>
+            </span>
+          </li>
+        <% end %>
+      <% else %>
+        <li class="list-group-item text-muted">Esta lista ainda não foi compartilhada.</li>
+      <% end %>
+    </ul>
+
+    <div class="d-flex justify-content-between mt-4">
+      <%= link_to "Voltar", listas_compras_path, class: "btn btn-outline-secondary" %>
+
+      <% if can?(:update, @lista) %>
+        <%= link_to "Editar", edit_listas_compra_path(@lista), class: "btn btn-edit" %>
+      <% end %>
+    </div>
+
+  </div>
+</div>

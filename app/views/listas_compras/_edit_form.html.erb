@@ -1,0 +1,92 @@
+<h2 class="mt-2 text-center">Editar Lista</h2>
+
+  <% if flash[:error] %>
+  <div class="alert alert-danger alert-dismissible fade show" role="error">
+    <i class="bi bi-exclamation-triangle-fill"></i> <%= flash[:error] %>
+    <button type="button" class="btn-close" data-bs-dismiss="error" aria-label="Close"></button>
+  </div>
+  <% end %>
+
+<%= form_with(model: @lista, url: listas_compra_path(@lista), local: true, class: "lista-compra-form") do |form| %>
+
+  <div class="lista-info card p-4 mb-4">
+    <h3 class="form-title">Detalhes da Lista</h3>
+    
+    <div class="mb-3">
+      <%= form.label :nome, "Nome da Lista" %>
+      <%= form.text_field :nome, class: "form-control", required: true %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :descricao, "Descrição" %>
+      <%= form.text_area :descricao, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="lista-itens card p-4 mb-4">
+    <h4 class="form-title">Itens da Lista</h4>
+    <div data-controller="itens">
+      <div data-itens-target="container" class="itens-container">
+        <% @lista.itens_lista.each do |item| %>
+          <div class="item-row lista-item-card p-3">
+          <%= form.fields_for :itens_lista, item do |item_fields| %>
+            <%= item_fields.hidden_field :_destroy, class: "destroy-flag" %>
+          
+            <div class="mb-3">
+              <%= item_fields.label :nome_item, "Nome do Item" %>
+              <%= item_fields.text_field :nome_item, class: "form-control" %>
+            </div>
+          
+            <div class="mb-3">
+              <%= item_fields.label :quantidade, "Quantidade" %>
+              <%= item_fields.number_field :quantidade, class: "form-control" %>
+            </div>
+          
+            <div class="mb-3">
+              <%= item_fields.label :observacoes, "Observações" %>
+              <%= item_fields.text_area :observacoes, class: "form-control" %>
+            </div>
+          
+            <button type="button" class="btn btn-danger btn-sm remove-item" data-action="click->itens#removeItem">Remover</button>
+          <% end %>
+          
+          </div>
+        <% end %>
+      </div>
+
+      <template data-itens-target="template">
+        <div class="item-row lista-item-card p-3">
+          <%= form.fields_for :itens_lista, ItemLista.new, child_index: "NEW_ITEM" do |item_fields| %>
+            <%= item_fields.hidden_field :_destroy, value: 0, class: "destroy-flag" %>
+            <div class="mb-3">
+              <%= item_fields.label :nome_item, "Nome do Item" %>
+              <%= item_fields.text_field :nome_item, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= item_fields.label :quantidade, "Quantidade" %>
+              <%= item_fields.number_field :quantidade, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= item_fields.label :observacoes, "Observações" %>
+              <%= item_fields.text_area :observacoes, class: "form-control" %>
+            </div>
+
+            <button type="button" class="btn btn-danger btn-sm remove-item" data-action="click->itens#removeItem">Remover</button>
+          <% end %>
+        </div>
+      </template>
+
+      <button type="button" class="btn btn-primary mt-3 add-item" data-action="click->itens#addItem">Adicionar Item</button>
+    </div>
+  </div>
+
+  <div class="form-actions text-center">
+    <%= form.submit "Salvar Alterações", class: "btn btn-success btn-lg" %>
+    <div class="mt-3">
+      <%= link_to "Voltar", listas_compras_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
+<% end %>
+

@@ -1,0 +1,2 @@
+class CompartilhamentoListasController < ApplicationController
+end

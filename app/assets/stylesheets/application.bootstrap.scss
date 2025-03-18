@@ -1,0 +1,227 @@
+@import "bootstrap/scss/bootstrap";
+@import "bootstrap-icons/font/bootstrap-icons";
+
+.container-new {
+  margin: 0 auto;
+  width: 85%;
+}
+
+#itens-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.item-row {
+  flex: 1 1 calc(33.333% - 10px);
+  min-width: 250px;
+}
+
+.lista-card {
+  border-radius: 12px !important;
+  transition: transform 0.2s ease-in-out, box-shadow 0.3s ease;
+  background: white !important;
+  border: none !important;
+  overflow: visible !important;
+}
+
+.lista-card:hover {
+  //transform: translateY(-3px) !important;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+.btn-primary {
+  background-color: #007bff !important;
+  border: none !important;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3 !important;
+  transform: scale(1.05) !important;
+}
+
+.btn-outline-primary {
+  border: none !important;
+  color: #007bff !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: #007bff !important;
+  color: white !important;
+}
+
+.dropdown-menu {
+  border-radius: 8px !important;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15) !important;
+  z-index: 2000 !important;
+  position: absolute !important;
+}
+
+.dropdown-item.text-danger {
+  color: #dc3545 !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.dropdown-item.text-danger:hover {
+  background-color: #dc3545 !important;
+  color: white !important;
+}
+
+.lista-item-card {
+  border-radius: 12px !important;
+  transition: transform 0.2s ease-in-out, box-shadow 0.3s ease;
+  background: white !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+}
+
+.lista-item-card:hover {
+  transform: scale(1.015) !important;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+.btn-create-list {
+  background: none !important;
+  color: #2980b9 !important;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: color 0.2s ease, border 0.3s ease;
+  padding: 8px 16px;
+}
+
+.btn-create-list:hover {
+  color: #1b4f72 !important;
+  border: 2px solid #1b4f72 !important;
+}
+
+.btn-logout {
+  background: none !important;
+  color: #e74c3c !important;
+  font-weight: 600;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: color 0.2s ease, border 0.3s ease;
+  padding: 8px 16px;
+}
+
+.btn-logout:hover {
+  color: #c0392b !important;
+  border: 2px solid #c0392b !important;
+}
+
+.btn-edit {
+  background-color: #e67921 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 8px !important;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  font-weight: 500;
+}
+
+.btn-edit:hover {
+  background-color: #c25c0f !important;
+}
+
+.lista-compra-form {
+  max-width: 1450px;
+  margin: 0 auto;
+}
+
+.form-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.lista-info,
+.lista-itens,
+.compartilhar {
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.itens-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.add-item {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.remove-item {
+  font-size: 0.85rem;
+}
+
+.form-actions {
+  margin-top: 20px;
+}
+
+.card {
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  background: white;
+  border: none;
+}
+
+.alert {
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alert-success {
+  background-color: #d4edda !important;
+  color: #155724 !important;
+}
+
+.alert-danger {
+  background-color: #f8d7da !important;
+  color: #721c24 !important;
+}
+
+.list-group-item {
+  border-radius: 5px;
+}
+
+.input-group-text {
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+}
+
+h2 {
+  font-weight: bold;
+  color: #333;
+}
+
+h5 {
+  font-weight: 600;
+  color: #555;
+}
+
+.text-muted {
+  font-size: 0.9rem;
+}
+
+.navbar-logo {
+  height: 47px;
+  opacity: 0.7; 
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.navbar-brand:hover .navbar-logo {
+  transform: scale(1.25); 
+  opacity:1;
+}
+
+.teste-css {
+  background-color: red;
+  width: 100px;
+  margin: 10px;
+  display: none; //essa div é apenas para testar algumas coisas no scss antes de recompilar pra ter certeza que está aplicando os estilus :)
+}

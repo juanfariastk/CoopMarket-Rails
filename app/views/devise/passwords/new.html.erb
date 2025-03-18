@@ -1,0 +1,22 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="card p-4 shadow-lg" style="max-width: 400px; width: 100%;">
+    <h2 class="text-center mb-3">Esqueceu sua senha?</h2>
+
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="mb-3">
+        <%= f.label :email, "E-mail", class: "form-label" %>
+        <%= f.email_field :email, class: "form-control", autofocus: true, autocomplete: "email", required: true %>
+      </div>
+
+      <div class="d-grid">
+        <%= f.submit "Enviar instruções de redefinição", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+
+     <div class="text-center mt-3">
+      <%= link_to "Criar uma conta", new_user_registration_path, class: "text-decoration-none" %>
+    </div>
+  </div>
+</div>

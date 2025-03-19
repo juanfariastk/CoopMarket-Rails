@@ -1,10 +1,9 @@
-# ???????????????????
-
-* COMANDOS IMPORTANTES PARA ESSA BUDEGA RODAR LEGAL
+# Informações úteis
+* Comandos
     * Quaisquer mudanças no scss, fazer um: 
       * rails restart && rails assets:clobber && rails assets:precompile
     * Para instalar o booststrap, após intalar o app, rode: 
       * yarn build:css
-    * Pra rodar isso aqui e ver tudo dando errado:
+    * Para rodar (caso de já estar instalado):
       * bin/dev  
 
